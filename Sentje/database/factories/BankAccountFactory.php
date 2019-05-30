@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\BankAccount;
+use Sentje\BankAccount;
 use Faker\Generator as Faker;
 
 $factory->define(BankAccount::class, function (Faker $faker) {

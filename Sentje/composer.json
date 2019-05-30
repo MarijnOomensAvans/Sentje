@@ -1,10 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "Sentje",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "WEBS2 Eindopdracht Sentje",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "mollie",
+        "banking"
     ],
     "license": "MIT",
     "require": {
@@ -34,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "Sentje\\": "app/"
         },
         "classmap": [
             "database/seeds",
