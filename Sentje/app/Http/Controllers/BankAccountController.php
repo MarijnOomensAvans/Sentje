@@ -2,20 +2,12 @@
 
 namespace Sentje\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Sentje\BankAccount;
 use Illuminate\Http\Request;
 
 class BankAccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +16,7 @@ class BankAccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('createbankaccount');
     }
 
     /**
@@ -35,7 +27,13 @@ class BankAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = request()->validate([
+            'name' => 'required|max:255'
+        ]);
+        $validated['user_id'] = Auth::id();
+        BankAccount::create($validated);
+
+        return redirect('/home');
     }
 
     /**
@@ -44,9 +42,10 @@ class BankAccountController extends Controller
      * @param  \Sentje\BankAccount  $bankAccount
      * @return \Illuminate\Http\Response
      */
-    public function show(BankAccount $bankAccount)
+    public function show(BankAccount $bankaccount)
     {
-        //
+
+        return $bankaccount;
     }
 
     /**
@@ -55,7 +54,7 @@ class BankAccountController extends Controller
      * @param  \Sentje\BankAccount  $bankAccount
      * @return \Illuminate\Http\Response
      */
-    public function edit(BankAccount $bankAccount)
+    public function edit(BankAccount $bankaccount)
     {
         //
     }
@@ -67,7 +66,7 @@ class BankAccountController extends Controller
      * @param  \Sentje\BankAccount  $bankAccount
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BankAccount $bankAccount)
+    public function update(Request $request, BankAccount $bankaccount)
     {
         //
     }
@@ -78,8 +77,9 @@ class BankAccountController extends Controller
      * @param  \Sentje\BankAccount  $bankAccount
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BankAccount $bankAccount)
+    public function destroy(BankAccount $bankaccount)
     {
-        //
+        $bankaccount->delete();
+        return view('home');
     }
 }

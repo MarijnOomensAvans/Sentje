@@ -27,6 +27,14 @@ a {
     margin-left: 30%;
 }
 
+.checkbox {
+    margin-left: 10px;
+}
+
+.register {
+    margin-left: 50%;
+}
+
 
 /* De linkstijling */
 .content a:link, .content a:visited {
@@ -60,13 +68,14 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color:rgb(206,133,0);
+    background-color: rgba(50,50,230,0.5);
     padding-left:35px;
     padding-right:35px;
     padding-top:35px;
     padding-bottom:50px;
     width: 450px;
     position: absolute;
+    border: 3px solid black;
 }
 
 .input {
@@ -88,12 +97,12 @@ a {
 }
 
 /* Return Button */
-.loginbutton input {
+.loginbutton button {
     float:left;
-    width: 98%;
-    border: rgb(0,0,0) solid 3px;
+    width: 100%;
+    border: 3px solid black;
     cursor: pointer;
-    background-color: rgb(140,70,0);
+    background-color: rgb(28,61,90);
     color: rgb(0,0,0);
     font-size:24px;
     padding-top:22px;
@@ -103,8 +112,8 @@ a {
     text-align: center;
 }
 
-.loginbutton input:hover {
-    background-color: rgb(209,111,0);
+.loginbutton button:hover {
+    background-color: #225c8e;
 
 }
 
