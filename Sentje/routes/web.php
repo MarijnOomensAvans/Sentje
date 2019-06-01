@@ -17,4 +17,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('bankaccounts', 'BankAccountController');
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('bankaccounts', 'BankAccountController');
+});
+
+

@@ -16,7 +16,7 @@ class BankAccountController extends Controller
      */
     public function create()
     {
-        return view('createbankaccount');
+        return view('bankaccount/createbankaccount');
     }
 
     /**
@@ -33,7 +33,7 @@ class BankAccountController extends Controller
         $validated['user_id'] = Auth::id();
         BankAccount::create($validated);
 
-        return redirect('/home');
+        return redirect('/');
     }
 
     /**
@@ -45,7 +45,7 @@ class BankAccountController extends Controller
     public function show(BankAccount $bankaccount)
     {
 
-        return $bankaccount;
+        return redirect('/');
     }
 
     /**
@@ -56,7 +56,7 @@ class BankAccountController extends Controller
      */
     public function edit(BankAccount $bankaccount)
     {
-        //
+        return view('bankaccount/editbankaccount', compact('bankaccount'));
     }
 
     /**
@@ -68,7 +68,8 @@ class BankAccountController extends Controller
      */
     public function update(Request $request, BankAccount $bankaccount)
     {
-        //
+        $bankaccount->update(\request(['name']));
+        return redirect('/');
     }
 
     /**
@@ -80,6 +81,6 @@ class BankAccountController extends Controller
     public function destroy(BankAccount $bankaccount)
     {
         $bankaccount->delete();
-        return view('home');
+        return redirect('/');
     }
 }

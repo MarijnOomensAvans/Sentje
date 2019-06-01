@@ -2,11 +2,12 @@
 
 @section('content')
     <div class="container">
-        <form method="POST" action="/bankaccounts">
+        <form method="POST" action="/bankaccounts/{{ $bankaccount->id }}">
             @csrf
+            @method('PATCH')
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" required>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{ $bankaccount->name }}" required>
             </div>
 
             @if($errors->any())
