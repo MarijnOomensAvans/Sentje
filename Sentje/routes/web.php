@@ -15,10 +15,11 @@ Route::get('/', 'HomeController@landing');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('bankaccounts', 'BankAccountController');
+    Route::get('settings', 'SettingsController@index')->name('settings');
 });
 
 
