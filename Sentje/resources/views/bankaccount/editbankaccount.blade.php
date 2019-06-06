@@ -6,8 +6,8 @@
             @csrf
             @method('PATCH')
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" value="{{ $bankaccount->name }}" required>
+                <label for="name">{{ __('content.name') }}</label>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="{{ __('content.name') }}" name="name" value="{{ $bankaccount->name }}" required>
             </div>
 
             @if($errors->any())
@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{{ __('content.save') }}</button>
         </form>
     </div>
 @endsection

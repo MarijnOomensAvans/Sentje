@@ -18,8 +18,14 @@ Auth::routes();
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
+        Route::get('locale/{locale}', function ($locale){
+        Session::put('locale', $locale);
+        return redirect('home');
+    });
+
     Route::resource('bankaccounts', 'BankAccountController');
     Route::get('settings', 'SettingsController@index')->name('settings');
+    Route::post('settings', 'SettingsController@update')->name('settings');
 });
 
 

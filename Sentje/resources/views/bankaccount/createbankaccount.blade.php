@@ -5,8 +5,8 @@
         <form method="POST" action="/bankaccounts">
             @csrf
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Name" name="name" required>
+                <label for="name">{{ __('content.name') }}</label>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="{{ __('content.name') }}" name="name" required>
             </div>
 
             @if($errors->any())
@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">{{ __('create') }}</button>
         </form>
     </div>
 @endsection

@@ -45,7 +45,7 @@ class BankAccountController extends Controller
     public function show(BankAccount $bankaccount)
     {
 
-        return redirect('/');
+        return view('bankaccount/showbankaccount', compact('bankaccount'));
     }
 
     /**
