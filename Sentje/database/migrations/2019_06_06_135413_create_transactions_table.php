@@ -15,12 +15,14 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->double('amount');
             $table->string('type');
             $table->string('description');
             $table->string('currency');
-            $table->bigInteger('bank_account')->unsigned();
-            $table->foreign('bank_account')->references('id')->on('bank_accounts');
+            $table->string('status');
+            $table->bigInteger('bank_account_id')->unsigned();
+            $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
             $table->timestamps();
         });
     }

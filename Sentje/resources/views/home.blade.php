@@ -23,7 +23,7 @@
                                 <td>{{ $account->balance }} {{ __('content.currency') }}</td>
                                 <td>
                                     <div class="input-group mb-3">
-                                    <a href="/bankaccounts/{{ $account->id }}/edit"><button type="button" class="btn btn-primary"><i class="fa fa-pencil-alt"></i> {{ __('content.edit') }}</button></a> <form method="POST" action="/bankaccounts/{{ $account->id }}" style="width: 30%;" class="form-inline">@csrf @method('DELETE')<button type="submit" class="btn btn-danger"><i class="fa fa-pencil-alt"></i> {{ __('content.delete') }}</button></form>
+                                    <a href="/bankaccounts/{{ $account->id }}/edit"><button type="button" class="btn btn-primary"><i class="fa fa-pencil-alt"></i> {{ __('content.edit') }}</button></a> <form method="POST" action="/bankaccounts/{{ $account->id }}" style="width: 30%;" class="form-inline">@csrf @method('DELETE')<button type="submit" class="btn btn-danger"><i class="fa fa-times"></i> {{ __('content.delete') }}</button></form>
                                     </div>
                                 </td>
                             </tr>

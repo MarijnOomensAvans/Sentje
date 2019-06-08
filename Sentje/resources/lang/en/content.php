@@ -12,5 +12,12 @@ return [
     'create' => 'Create',
     'save' => 'Save',
     'accbalance' => 'Account balance:',
-    'transactions' => 'Transactions:'
+    'transactions' => 'Transactions:',
+    'transaction' => 'Transaction',
+    'reciever' => 'Reciever',
+    'amount' => 'Amount',
+    'wcurrency' => 'Currency',
+    'description' => 'Description',
+    'status' => 'Status',
+    'type' => 'Type'
 ];

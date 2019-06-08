@@ -16,4 +16,8 @@ class BankAccount extends Model
     public function user() {
         return $this->belongsTo('Sentje\User');
     }
+
+    public function transactions() {
+        return $this->hasMany('Sentje\Transaction');
+    }
 }

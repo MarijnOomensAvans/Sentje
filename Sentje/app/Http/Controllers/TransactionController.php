@@ -7,24 +7,15 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($accountid)
     {
-        //
+        return view('transaction.createtransaction', compact('accountid'));
     }
 
     /**
@@ -35,7 +26,23 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request['type'] == 'Transaction') {
+            $validated = request()->validate([
+                'name' => 'required|min:1|max:255',
+                'amount' => 'required|min:0.01|max:4000',
+                'description' => 'max:255',
+                'type' => 'required',
+                'currency' => 'required',
+                'status' => 'required',
+                'bank_account_id' => 'required'
+            ]);
+            Transaction::create($validated);
+
+            return redirect('/');
+        } else {
+            dd('donated');
+        }
+
     }
 
     /**
@@ -46,7 +53,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('transaction.showtransaction', compact('transaction'));
     }
 
     /**

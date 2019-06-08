@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     Route::resource('bankaccounts', 'BankAccountController');
+    Route::get('transactions/create/{bankaccount_id}', 'TransactionController@create')->name('transaction.create');
+    Route::resource('transactions', 'TransactionController', ['except' => ['create']]);
     Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings', 'SettingsController@update')->name('settings');
 });
