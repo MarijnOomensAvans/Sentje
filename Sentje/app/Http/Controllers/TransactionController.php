@@ -2,6 +2,8 @@
 
 namespace Sentje\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use Sentje\Mail\TransactionCreated;
 use Sentje\Transaction;
 use Illuminate\Http\Request;
 
@@ -34,9 +36,14 @@ class TransactionController extends Controller
                 'type' => 'required',
                 'currency' => 'required',
                 'status' => 'required',
-                'bank_account_id' => 'required'
+                'bank_account_id' => 'required',
+                'email' => 'required'
             ]);
             Transaction::create($validated);
+
+            Mail::to($validated['email'])->send(
+              new TransactionCreated($validated)
+            );
 
             return redirect('/');
         } else {
@@ -87,6 +94,11 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return back();
+    }
+
+    public function pay() {
+        
     }
 }

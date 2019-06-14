@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->string('description');
             $table->string('currency');
             $table->string('status');
+            $table->string('email');
             $table->bigInteger('bank_account_id')->unsigned();
             $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
             $table->timestamps();

@@ -13,13 +13,18 @@
                         <input type="hidden" name="status" value="Unpaid">
                         <input type="hidden" name="bank_account_id" value="{{ $accountid }}">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="{{ __('content.name') }}" name="name" required>
+                            <label>Recipient</label>
+                            <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="{{ __('content.Recipient') }}" name="name" required>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label>Recipient email</label>
+                            <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="{{ __('content.recipientmail') }}" name="email" required>
                         </div>
                         <hr>
                         <div class="form-group">
                             <label>Amount</label>
-                            <input type="number" min="0.01" step="0.01" class="form-control" aria-describedby="amountHelp" placeholder="{{ __('content.name') }}" name="amount" required>
+                            <input type="number" min="0.01" step="0.01" class="form-control" aria-describedby="amountHelp" placeholder="{{ __('content.amount') }}" name="amount" required>
                         </div>
                         <hr>
                         <div class="form-group">

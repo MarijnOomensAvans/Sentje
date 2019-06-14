@@ -8,7 +8,7 @@
                     <div class="card-header">{{ $bankaccount->name }}</div>
 
                     <div class="card-body">
-                        <h4>{{ __('content.accbalance') }} {{ $bankaccount->balance }}</h4>
+                        <h4>{{ __('content.accbalance') }} {{ $bankaccount->balance() }}</h4>
                         <h1>{{ __('content.transactions') }}</h1>
                         {{-- Transaction table --}}
                         <table class="table">
@@ -35,11 +35,14 @@
                                             <button class="btn-secondary btn"><i class="fa fa-eye"></i> Edit</button>
                                             @endif
                                             @if($transaction->status != 'Paid')
-                                            <button class="btn-danger btn"><i class="fa fa-times"></i> Delete</button>
+                                                <form method="POST" action="/transactions/{{ $transaction->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                            <button type="submit" class="btn-danger btn"><i class="fa fa-times"></i> Delete</button>
+                                                </form>
                                             @endif
                                         </div>
                                 </div>
-                            </tbody>
                             @endforeach
                             </tbody>
                         </table>

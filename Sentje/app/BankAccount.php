@@ -3,7 +3,6 @@
 namespace Sentje;
 
 use Illuminate\Database\Eloquent\Model;
-use Sentje\User;
 
 class BankAccount extends Model
 {
@@ -19,5 +18,15 @@ class BankAccount extends Model
 
     public function transactions() {
         return $this->hasMany('Sentje\Transaction');
+    }
+
+    public function balance() {
+        $balance = 0;
+        foreach ($this->transactions as $transaction) {
+            if($transaction->status == 'Paid') {
+                $balance += $transaction->amount;
+            }
+        }
+        return $balance;
     }
 }

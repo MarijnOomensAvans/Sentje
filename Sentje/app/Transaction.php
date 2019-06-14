@@ -13,6 +13,7 @@ class Transaction extends Model
         'description',
         'currency',
         'status',
-        'bank_account_id'
+        'bank_account_id',
+        'email'
         ];
 }

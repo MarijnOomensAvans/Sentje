@@ -19,5 +19,9 @@ return [
     'wcurrency' => 'Currency',
     'description' => 'Description',
     'status' => 'Status',
-    'type' => 'Type'
+    'type' => 'Type',
+    'Recipient' => 'Recipient',
+    'amount' => 'Amount',
+    'recipientmail' => 'Recipient e-mail',
+    'email' => 'E-mail'
 ];

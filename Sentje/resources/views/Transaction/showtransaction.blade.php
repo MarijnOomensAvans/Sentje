@@ -14,8 +14,13 @@
                         </div>
                         <hr>
                         <div class="row">
+                            <div class="col-lg-3"><b>{{ __('content.email') }}: </b></div>
+                            <div class="col-lg-9">{{ $transaction->email }}</div>
+                        </div>
+                        <hr>
+                        <div class="row">
                             <div class="col-lg-3"><b>{{ __('content.amount') }}: </b></div>
-                            <div class="col-lg-9">{{ $transaction->amount }} @if($transaction->currency == 'Euro')€@else₽@endif</div>
+                            <div class="col-lg-9">{{ $transaction->amount }} @if($transaction->currency == 'EUR')€@else₽@endif</div>
                         </div>
                         <hr>
                         <div class="row">
