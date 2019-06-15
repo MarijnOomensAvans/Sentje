@@ -28,7 +28,7 @@ class BankAccountController extends Controller
     public function store(Request $request)
     {
         $validated = request()->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:7'
         ]);
         $validated['user_id'] = Auth::id();
         BankAccount::create($validated);

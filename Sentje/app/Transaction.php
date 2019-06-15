@@ -17,7 +17,9 @@ class Transaction extends Model
         'bank_account_id',
         'email',
         'payment_id',
-        'paid_at'
+        'paid_at',
+        'refunded_at',
+        'failed_at'
         ];
 
     public function getPaymentAttribute() {

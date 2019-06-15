@@ -24,8 +24,10 @@ class CreateTransactionsTable extends Migration
             $table->string('email');
             $table->string('payment_id')->nullable()->default(null);
             $table->bigInteger('bank_account_id')->unsigned();
-            $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
+            $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('cascade');
             $table->dateTime('paid_at')->nullable()->default(null);
+            $table->dateTime('refunded_at')->nullable()->default(null);
+            $table->dateTime('failed_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

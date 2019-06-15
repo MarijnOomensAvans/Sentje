@@ -36,6 +36,9 @@
         }
     },
     "autoload": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "Sentje\\": "app/"
         },
@@ -45,6 +48,9 @@
         ]
     },
     "autoload-dev": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }

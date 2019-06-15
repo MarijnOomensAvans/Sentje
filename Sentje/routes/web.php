@@ -28,7 +28,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('transactions', 'TransactionController', ['except' => ['create']]);
     Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings', 'SettingsController@update')->name('settings');
-    Route::get('pay/{transaction_id}', 'TransactionController@pay');
 });
+
+Route::get('pay/{transaction_id}', 'TransactionController@pay');
+Route::get('completed/{id}', 'TransactionController@completed');
 
 

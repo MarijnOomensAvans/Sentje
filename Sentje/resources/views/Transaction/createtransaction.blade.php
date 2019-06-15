@@ -31,8 +31,7 @@
                             <label>Currency</label>
                             <select class="form-control " name="currency">
                                 <option value="EUR" selected>Euro : €</option>
-                                <option value="USD">Dollar : $</option>
-                                <option value="GBP">Pound : £</option>
+                                <option value="RUB">Ruble : ₽</option>
                             </select>
                         </div>
                         <hr>

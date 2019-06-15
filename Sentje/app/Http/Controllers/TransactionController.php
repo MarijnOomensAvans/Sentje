@@ -5,6 +5,7 @@ namespace Sentje\Http\Controllers;
 use App\Donation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Mollie\Api\Resources\Payment;
 use Sentje\Mail\TransactionCreated;
 use Sentje\Transaction;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class TransactionController extends Controller
                     'value' => number_format($transaction->amount, 2, '.', '')
                 ],
                 'description' => $transaction->description,
-                'redirectUrl' => 'http://www.yandex.ru'
+                'redirectUrl' => action('TransactionController@completed', compact('transaction'))
             ];
 
             $payment = Mollie::api()->payments()->create($data);
@@ -63,11 +64,7 @@ class TransactionController extends Controller
                 new TransactionCreated($validated)
             );
 
-            dd($payment->id);
-            $payment = Mollie::api()->payments()->get($payment->id);
-
-            return redirect($payment->getCheckoutUrl(), 303);
-            //return redirect('/');
+            return redirect('/');
         } else {
             dd('donated');
         }
@@ -126,50 +123,56 @@ class TransactionController extends Controller
 
         $payment = Mollie::api()->payments()->get($transaction->payment_id);
 
-        return redirect($payment->getCheckoutUrl(), 303);
+        dd($payment->isFailed());
 
-        // -------------------------------------------------------------
+        if(!$payment->isOpen()) {
+            return abort(404);
+        } else {
+            return redirect($payment->getCheckoutUrl(), 303);
+        }
+    }
 
+    public function completed($id) {
+        $transaction = Transaction::where('id',$id)->first();
         if (empty($transaction->payment_id)) {
             return abort(404);
         }
-//
-//        $payment = $transaction->payment_id;
-//
-//
-//        $this->processMolliePayment($transaction->getPaymentAttribute(), $transaction);
-//
-//        $success = false;
-//        $pending = false;
-//        $error = false;
-//
-//        if ($payment->isFailed() || $payment->isCanceled() || $payment->isExpired()) {
-//            $error = true;
-//        } else if ($payment->isPending() || $payment->isOpen()) {
-//            $pending = true;
-//        } else {
-//            $success = true;
-//        }
-//
-//        return redirect('/');
+
+        $payment = Mollie::api()->payments()->get($transaction->payment_id);
+
+        $this->process($payment, $transaction);
+
+        $success = false;
+        $pending = false;
+        $error = false;
+
+        if ($payment->isFailed() || $payment->isCanceled() || $payment->isExpired()) {
+            $error = true;
+        } else if ($payment->isPending() || $payment->isOpen()) {
+            $pending = true;
+        } else {
+            $success = true;
+        }
+
+        return view('transaction.thanks', compact('success', 'pending', 'error'));
     }
 
-    private function processMolliePayment(Payment $payment, Transaction $transaction) {
-//        if ($payment->isPaid()) {
-//            $transaction->paid_at = Carbon::parse($payment->paidAt)->setTimezone(config('app.timezone'));
-//
-//        } else if ($payment->isExpired()) {
-//            $transaction->failed_at = Carbon::parse($payment->expiresAt)->setTimezone(config('app.timezone'));
-//        }
-//
-//        else if ($payment->isCanceled()) {
-//            $transaction->failed_at = Carbon::parse($payment->canceledAt)->setTimezone(config('app.timezone'));
-//        }
-//
-//        else {
-//            $transaction->failed_at = Carbon::parse($payment->failedAt)->setTimezone(config('app.timezone'));
-//        }
-//
-//        $transaction->save();
+    private function process(Payment $payment, Transaction $transaction) {
+        if ($payment->isPaid()) {
+            $transaction->paid_at = Carbon::parse($payment->paidAt)->setTimezone(config('app.timezone'));
+
+        } else if ($payment->isExpired()) {
+            $transaction->failed_at = Carbon::parse($payment->expiresAt)->setTimezone(config('app.timezone'));
+        }
+
+        else if ($payment->isCanceled()) {
+            $transaction->failed_at = Carbon::parse($payment->canceledAt)->setTimezone(config('app.timezone'));
+        }
+
+        else {
+            $transaction->failed_at = Carbon::parse($payment->failedAt)->setTimezone(config('app.timezone'));
+        }
+
+        $transaction->save();
     }
 }
