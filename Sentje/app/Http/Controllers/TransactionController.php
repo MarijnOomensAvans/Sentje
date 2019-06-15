@@ -2,10 +2,13 @@
 
 namespace Sentje\Http\Controllers;
 
+use App\Donation;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Sentje\Mail\TransactionCreated;
 use Sentje\Transaction;
 use Illuminate\Http\Request;
+use Mollie\Laravel\Facades\Mollie;
 
 class TransactionController extends Controller
 {
@@ -39,13 +42,32 @@ class TransactionController extends Controller
                 'bank_account_id' => 'required',
                 'email' => 'required'
             ]);
-            Transaction::create($validated);
+            $transaction = new Transaction($validated);
+            $transaction->save();
+
+            $data = [
+                'amount' => [
+                    'currency' => $transaction->currency,
+                    'value' => number_format($transaction->amount, 2, '.', '')
+                ],
+                'description' => $transaction->description,
+                'redirectUrl' => 'http://www.yandex.ru'
+            ];
+
+            $payment = Mollie::api()->payments()->create($data);
+
+            $transaction->payment_id = $payment->id;
+            $transaction->save();
 
             Mail::to($validated['email'])->send(
-              new TransactionCreated($validated)
+                new TransactionCreated($validated)
             );
 
-            return redirect('/');
+            dd($payment->id);
+            $payment = Mollie::api()->payments()->get($payment->id);
+
+            return redirect($payment->getCheckoutUrl(), 303);
+            //return redirect('/');
         } else {
             dd('donated');
         }
@@ -98,7 +120,56 @@ class TransactionController extends Controller
         return back();
     }
 
-    public function pay() {
-        
+    public function pay($transaction_id) {
+
+        $transaction = Transaction::where('id',(int)$transaction_id)->first();
+
+        $payment = Mollie::api()->payments()->get($transaction->payment_id);
+
+        return redirect($payment->getCheckoutUrl(), 303);
+
+        // -------------------------------------------------------------
+
+        if (empty($transaction->payment_id)) {
+            return abort(404);
+        }
+//
+//        $payment = $transaction->payment_id;
+//
+//
+//        $this->processMolliePayment($transaction->getPaymentAttribute(), $transaction);
+//
+//        $success = false;
+//        $pending = false;
+//        $error = false;
+//
+//        if ($payment->isFailed() || $payment->isCanceled() || $payment->isExpired()) {
+//            $error = true;
+//        } else if ($payment->isPending() || $payment->isOpen()) {
+//            $pending = true;
+//        } else {
+//            $success = true;
+//        }
+//
+//        return redirect('/');
+    }
+
+    private function processMolliePayment(Payment $payment, Transaction $transaction) {
+//        if ($payment->isPaid()) {
+//            $transaction->paid_at = Carbon::parse($payment->paidAt)->setTimezone(config('app.timezone'));
+//
+//        } else if ($payment->isExpired()) {
+//            $transaction->failed_at = Carbon::parse($payment->expiresAt)->setTimezone(config('app.timezone'));
+//        }
+//
+//        else if ($payment->isCanceled()) {
+//            $transaction->failed_at = Carbon::parse($payment->canceledAt)->setTimezone(config('app.timezone'));
+//        }
+//
+//        else {
+//            $transaction->failed_at = Carbon::parse($payment->failedAt)->setTimezone(config('app.timezone'));
+//        }
+//
+//        $transaction->save();
     }
 }

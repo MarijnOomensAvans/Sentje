@@ -3,6 +3,7 @@
 namespace Sentje;
 
 use Illuminate\Database\Eloquent\Model;
+use Mollie\Laravel\Facades\Mollie;
 
 class Transaction extends Model
 {
@@ -14,6 +15,16 @@ class Transaction extends Model
         'currency',
         'status',
         'bank_account_id',
-        'email'
+        'email',
+        'payment_id',
+        'paid_at'
         ];
+
+    public function getPaymentAttribute() {
+        if (empty($this->payment_id)) {
+            return null;
+        }
+
+        return Mollie::api()->payments()->get($this->payment_id);
+    }
 }

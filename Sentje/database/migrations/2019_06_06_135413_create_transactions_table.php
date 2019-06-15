@@ -18,12 +18,14 @@ class CreateTransactionsTable extends Migration
             $table->string('name');
             $table->double('amount');
             $table->string('type');
-            $table->string('description');
+            $table->string('description')->nullable()->default(null);
             $table->string('currency');
             $table->string('status');
             $table->string('email');
+            $table->string('payment_id')->nullable()->default(null);
             $table->bigInteger('bank_account_id')->unsigned();
             $table->foreign('bank_account_id')->references('id')->on('bank_accounts');
+            $table->dateTime('paid_at')->nullable()->default(null);
             $table->timestamps();
         });
     }
