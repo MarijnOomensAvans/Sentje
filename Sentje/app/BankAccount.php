@@ -24,9 +24,15 @@ class BankAccount extends Model
         $balance = 0;
         foreach ($this->transactions as $transaction) {
             if($transaction->status == 'Paid') {
-                $balance += $transaction->amount;
+                if($transaction->currency == 'EUR') {
+                    $balance += $transaction->amount;
+                } else {
+                    $balance += $transaction->amount * 0.0138198367;
+                }
+
             }
         }
+        $balance = number_format($balance, 2, '.', '');
         return $balance;
     }
 }

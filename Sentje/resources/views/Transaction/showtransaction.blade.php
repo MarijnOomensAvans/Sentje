@@ -13,11 +13,13 @@
                             <div class="col-lg-9">{{ Auth::user()->name }}</div>
                         </div>
                         <hr>
+                        @if(!empty($transaction->email))
                         <div class="row">
                             <div class="col-lg-3"><b>{{ __('content.email') }}: </b></div>
                             <div class="col-lg-9">{{ $transaction->email }}</div>
                         </div>
                         <hr>
+                        @endif
                         <div class="row">
                             <div class="col-lg-3"><b>{{ __('content.amount') }}: </b></div>
                             <div class="col-lg-9">{{ $transaction->amount }} @if($transaction->currency == 'EUR')€@else₽@endif</div>
@@ -42,6 +44,13 @@
                             <div class="col-lg-3"><b>{{ __('content.status') }}: </b></div>
                             <div class="col-lg-9">{{ $transaction->status }}</div>
                         </div>
+                        @if($transaction->getPaymentAttribute()->isPaid())
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-3"><b>{{ __('content.paidat') }}: </b></div>
+                            <div class="col-lg-9">{{ $transaction->paid_at }}</div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

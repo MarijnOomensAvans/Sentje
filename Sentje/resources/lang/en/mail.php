@@ -6,5 +6,6 @@ return [
     'pay' => 'Pay',
     'thanks' => 'Thanks',
     'description' => 'Description',
-    'amount' => 'Amount'
+    'amount' => 'Amount',
+    'subject' => 'Payment request'
 ];

@@ -25,12 +25,14 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('bankaccounts', 'BankAccountController');
     Route::get('transactions/create/{bankaccount_id}', 'TransactionController@create')->name('transaction.create');
-    Route::resource('transactions', 'TransactionController', ['except' => ['create']]);
+    Route::resource('transactions', 'TransactionController', ['except' => ['create', 'store']]);
     Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings', 'SettingsController@update')->name('settings');
 });
 
 Route::get('pay/{transaction_id}', 'TransactionController@pay');
 Route::get('completed/{id}', 'TransactionController@completed');
+Route::get('donate/{id}', 'TransactionController@donate');
+Route::post('transactions', 'TransactionController@store');
 
 

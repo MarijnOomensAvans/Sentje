@@ -30,6 +30,8 @@ class TransactionCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.transaction-created');
+        return $this->from('noreply@sentje.ru')
+                    ->subject(__('mail.subject'))
+                    ->markdown('emails.transaction-created');
     }
 }

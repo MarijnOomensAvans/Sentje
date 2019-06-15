@@ -23,5 +23,8 @@ return [
     'Recipient' => 'Recipient',
     'amount' => 'Amount',
     'recipientmail' => 'Recipient e-mail',
-    'email' => 'E-mail'
+    'email' => 'E-mail',
+    'paidat' => 'Paid at',
+    'donation' => 'Donation',
+    'donationlink' => 'Donation link'
 ];

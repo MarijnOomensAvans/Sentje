@@ -40,14 +40,6 @@
                             <textarea class="form-control " name="description" rows="4"></textarea>
                         </div>
                         <hr>
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input js-custom-file-input-enabled" data-toggle="custom-file-input" id="image" name="image" accept="image/*">
-                                <label class="custom-file-label" for="image">Choose image</label>
-                            </div>
-                        </div>
-                        <hr>
                         <div class="form-group row mb-0">
                             <div class="col-12 text-left">
                                 <button type="submit" class="btn btn-success">Create</button>

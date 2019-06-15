@@ -9,6 +9,7 @@
 
                     <div class="card-body">
                         <h4>{{ __('content.accbalance') }} {{ $bankaccount->balance() }}</h4>
+                        <p>{{ __('content.donationlink') }}: <a href="{{ url('/donate/' . $bankaccount->id) }}">{{ url('/donate/' . $bankaccount->id) }}</a> </p>
                         <h1>{{ __('content.transactions') }}</h1>
                         {{-- Transaction table --}}
                         <table class="table">
@@ -23,6 +24,7 @@
                             </thead>
                             <tbody>
                             @foreach($bankaccount->transactions as $transaction)
+                                <tr>
                                 <div>
                                     <td>{{ Auth::user()->name }}</td>
                                     <td>{{ $transaction->amount }}</td>
@@ -43,6 +45,7 @@
                                             @endif
                                         </div>
                                 </div>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
