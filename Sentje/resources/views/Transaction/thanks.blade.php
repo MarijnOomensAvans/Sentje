@@ -5,11 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 @if($success)
-                    <h1>Hartelijk dank dat u gekozen hebt om VEADS te helpen met uw donatie!<br/>VEADS heeft uw donatie in goede orde ontvangen.</h1>
+                    <h1>{{ __('content.thanksdon') }}<br/>{{ __('content.recieved') }}</h1>
                 @elseif($pending)
-                    <h1>Hartelijk dank dat u gekozen hebt om VEADS te helpen met uw donatie!<br/>Uw donatie wordt momenteel verwerkt.</h1>
+                    <h1>{{ __('content.thanksdon') }}<br/>{{ __('content.processed') }}</h1>
                 @else
-                    <h1>Hartelijk dank dat u gekozen hebt om VEADS te helpen met uw donatie!<br/>Er is een fout opgetreden tijdens het verwerken van uw donatie. Probeer het later nog een keer.</h1>
+                    <h1>{{ __('content.thanksdon') }}<br/>{{ __('content.error') }}</h1>
                 @endif
             </div>
         </div>

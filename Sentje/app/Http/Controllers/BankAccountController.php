@@ -3,6 +3,7 @@
 namespace Sentje\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Sentje\BankAccount;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,10 @@ class BankAccountController extends Controller
             'name' => 'required|max:7'
         ]);
         $validated['user_id'] = Auth::id();
-        BankAccount::create($validated);
+        $account = BankAccount::create($validated);
+        $account->fill([
+            'name' => Crypt::encrypt($validated['name'])
+        ])->save();
 
         return redirect('/');
     }
@@ -44,8 +48,12 @@ class BankAccountController extends Controller
      */
     public function show(BankAccount $bankaccount)
     {
+        if(Auth::id() == $bankaccount->user_id) {
+            return view('bankaccount/showbankaccount', compact('bankaccount'));
+        } else {
+            abort(403);
+        }
 
-        return view('bankaccount/showbankaccount', compact('bankaccount'));
     }
 
     /**
@@ -56,7 +64,11 @@ class BankAccountController extends Controller
      */
     public function edit(BankAccount $bankaccount)
     {
-        return view('bankaccount/editbankaccount', compact('bankaccount'));
+        if(Auth::id() == $bankaccount->user_id) {
+            return view('bankaccount/editbankaccount', compact('bankaccount'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -68,8 +80,12 @@ class BankAccountController extends Controller
      */
     public function update(Request $request, BankAccount $bankaccount)
     {
-        $bankaccount->update(\request(['name']));
-        return redirect('/');
+        if(Auth::id() == $bankaccount->user_id) {
+            $bankaccount->update(\request(['name']));
+            return redirect('/');
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -80,7 +96,11 @@ class BankAccountController extends Controller
      */
     public function destroy(BankAccount $bankaccount)
     {
-        $bankaccount->delete();
-        return redirect('/');
+        if(Auth::id() == $bankaccount->user_id) {
+            $bankaccount->delete();
+            return redirect('/');
+        } else {
+            abort(403);
+        }
     }
 }

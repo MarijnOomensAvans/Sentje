@@ -5,7 +5,6 @@ return [
     'accounts' => 'Your accounts:',
     'balance' => 'Balance',
     'createacc' => 'Create account',
-    'currency' => '€',
     'edit' => 'Edit',
     'delete' => 'Delete',
     'name' => 'Name',
@@ -21,10 +20,14 @@ return [
     'status' => 'Status',
     'type' => 'Type',
     'Recipient' => 'Recipient',
-    'amount' => 'Amount',
     'recipientmail' => 'Recipient e-mail',
     'email' => 'E-mail',
     'paidat' => 'Paid at',
     'donation' => 'Donation',
-    'donationlink' => 'Donation link'
+    'donationlink' => 'Donation link',
+    'createdon' => 'Create donation',
+    'thanksdon' => 'Thank you for donating!',
+    'recieved' => 'The user has recieved the money.',
+    'processed' => 'The transaction is currently being processed.',
+    'error' => 'An error occured. Please try again later.'
 ];

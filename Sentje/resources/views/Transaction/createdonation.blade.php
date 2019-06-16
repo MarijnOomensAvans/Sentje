@@ -13,12 +13,12 @@
                             <input type="hidden" name="status" value="Unpaid">
                             <input type="hidden" name="bank_account_id" value="{{ $accountid }}">
                             <div class="form-group">
-                                <label>Amount</label>
+                                <label>{{ __('content.amount') }}</label>
                                 <input type="number" min="0.01" max="4000" step="0.01" class="form-control" aria-describedby="amountHelp" placeholder="{{ __('content.amount') }}" name="amount" required>
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label>Currency</label>
+                                <label>{{ __('content.wcurrency') }}</label>
                                 <select class="form-control " name="currency">
                                     <option value="EUR" selected>Euro : €</option>
                                     <option value="RUB">Ruble : ₽</option>
@@ -26,13 +26,13 @@
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label>Description</label>
+                                <label>{{ __('content.description') }}</label>
                                 <textarea class="form-control " name="description" rows="4"></textarea>
                             </div>
                             <hr>
                             <div class="form-group row mb-0">
                                 <div class="col-12 text-left">
-                                    <button type="submit" class="btn btn-success">Create donation</button>
+                                    <button type="submit" class="btn btn-success">{{ __('content.createdon') }}</button>
                                 </div>
                             </div>
                         </form>

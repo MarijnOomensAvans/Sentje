@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ $bankaccount->name }}</div>
+                    <div class="card-header">{{ \Illuminate\Support\Facades\Crypt::decrypt($bankaccount->name) }}</div>
 
                     <div class="card-body">
-                        <h4>{{ __('content.accbalance') }} {{ $bankaccount->balance() }}</h4>
+                        <h4>{{ __('content.accbalance') }} {{ $bankaccount->balance() }} €</h4>
                         <p>{{ __('content.donationlink') }}: <a href="{{ url('/donate/' . $bankaccount->id) }}">{{ url('/donate/' . $bankaccount->id) }}</a> </p>
                         <h1>{{ __('content.transactions') }}</h1>
                         {{-- Transaction table --}}
@@ -26,8 +26,8 @@
                             @foreach($bankaccount->transactions as $transaction)
                                 <tr>
                                 <div>
-                                    <td>{{ Auth::user()->name }}</td>
-                                    <td>{{ $transaction->amount }}</td>
+                                    <td>{{ \Illuminate\Support\Facades\Crypt::decrypt(Auth::user()->name) }}</td>
+                                    <td>{{ $transaction->amount }} @if($transaction->currency == 'EUR')€@else₽@endif</td>
                                     <td>{{ $transaction->type }}</td>
                                     <td>{{ $transaction->status }}</td>
                                     <td>

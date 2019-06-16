@@ -4,9 +4,10 @@ namespace Sentje\Http\Controllers;
 
 use App\Donation;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Mollie\Api\Resources\Payment;
+use Sentje\BankAccount;
 use Sentje\Mail\TransactionCreated;
 use Sentje\Transaction;
 use Illuminate\Http\Request;
@@ -113,30 +114,12 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return view('transaction.showtransaction', compact('transaction'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \Sentje\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Sentje\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
+        $account = BankAccount::where('id', $transaction->bank_account_id)->first();
+        if(Auth::id() == $account->user_id) {
+            return view('transaction.showtransaction', compact('transaction'));
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -147,14 +130,22 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        Mollie::api()->payments()->delete($transaction->getPaymentAttribute());
-        $transaction->delete();
-        return back();
+        $account = BankAccount::where('id', $transaction->bank_account_id)->first();
+        if(Auth::id() == $account->user_id) {
+            $transaction->delete();
+            return back();
+        } else {
+            abort(403);
+        }
     }
 
     public function pay($transaction_id) {
 
         $transaction = Transaction::where('id',(int)$transaction_id)->first();
+
+        if(empty($transaction)) {
+            return abort(404);
+        }
 
         $payment = Mollie::api()->payments()->get($transaction->payment_id);
 

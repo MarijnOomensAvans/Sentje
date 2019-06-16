@@ -2,6 +2,7 @@
 
 namespace Sentje\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Crypt;
 use Sentje\User;
 use Sentje\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,8 +65,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name' => Crypt::encrypt($data['name']),
+            'email' => Crypt::encrypt($data['email']),
             'password' => Hash::make($data['password']),
         ]);
     }
