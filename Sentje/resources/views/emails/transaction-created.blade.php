@@ -12,5 +12,5 @@
 @endcomponent
 
 {{ __('mail.thanks') }},<br>
-{{ Auth::user()->name }}
+{{ \Illuminate\Support\Facades\Crypt::decrypt(Auth::user()->name) }}
 @endcomponent

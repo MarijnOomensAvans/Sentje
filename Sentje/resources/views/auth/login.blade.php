@@ -7,6 +7,15 @@
         <img src="{{ asset('images/logo.png') }}" class="logo">
         <input id="email" name="email" type="email" class="input" value="{{ old('email') }}" placeholder="{{ __('account.email') }}" required autocomplete="email" autofocus>
         <input id="password" name="password" type="password" class="input" placeholder="{{ __('account.password') }}" required autocomplete="current-password">
+        @if($errors->any())
+            <div>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li class="text-warning">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <label>{{ __('account.remember') }}</label>
         <input type="checkbox" class="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
         <a href="{{route('register')}}" class="register">{{ __('account.register') }}</a>

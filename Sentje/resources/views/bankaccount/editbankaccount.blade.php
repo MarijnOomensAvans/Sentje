@@ -7,7 +7,7 @@
             @method('PATCH')
             <div class="form-group">
                 <label for="name">{{ __('content.name') }}</label>
-                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="{{ __('content.name') }}" name="name" value="{{ $bankaccount->name }}" required>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="{{ __('content.name') }}" name="name" value="{{ \Illuminate\Support\Facades\Crypt::decrypt($bankaccount->name) }}" required>
             </div>
 
             @if($errors->any())

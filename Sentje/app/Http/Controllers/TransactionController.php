@@ -41,14 +41,14 @@ class TransactionController extends Controller
         //Payment request
         if($request['type'] == 'Transaction') {
             $validated = request()->validate([
-                'name' => 'required|min:1|max:255',
+                'name' => 'required|max:255',
                 'amount' => 'required|min:0.01|max:4000',
-                'description' => 'max:255',
+                'description' => 'required|max:255',
                 'type' => 'required',
                 'currency' => 'required',
                 'status' => 'required',
                 'bank_account_id' => 'required',
-                'email' => 'required'
+                'email' => 'required|max:255'
             ]);
 
             $transaction = new Transaction($validated);

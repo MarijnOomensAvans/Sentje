@@ -27,9 +27,19 @@
                             <hr>
                             <div class="form-group">
                                 <label>{{ __('content.description') }}</label>
-                                <textarea class="form-control " name="description" rows="4"></textarea>
+                                <textarea class="form-control" name="description" rows="4" required></textarea>
                             </div>
                             <hr>
+                            @if($errors->any())
+                                <div>
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li class="text-danger">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <hr>
+                            @endif
                             <div class="form-group row mb-0">
                                 <div class="col-12 text-left">
                                     <button type="submit" class="btn btn-success">{{ __('content.createdon') }}</button>
@@ -42,4 +52,3 @@
         </div>
     </div>
 @endsection
-

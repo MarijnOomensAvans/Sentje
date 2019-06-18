@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3"><b>{{ __('content.reciever') }}: </b></div>
-                            <div class="col-lg-9">{{ \Illuminate\Support\Facades\Crypt::decrypt(Auth::user()->name) }}</div>
+                            <div class="col-lg-9">{{ $transaction->name }}</div>
                         </div>
                         <hr>
                         @if(!empty($transaction->email))
@@ -48,7 +48,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-lg-3"><b>{{ __('content.paidat') }}: </b></div>
-                            <div class="col-lg-9">{{ $transaction->paid_at }}</div>
+                            <div class="col-lg-9">{{ $transaction->paid_at() }}</div>
                         </div>
                         @endif
                     </div>

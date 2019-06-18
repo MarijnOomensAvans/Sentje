@@ -29,7 +29,7 @@ class BankAccountController extends Controller
     public function store(Request $request)
     {
         $validated = request()->validate([
-            'name' => 'required|max:7'
+            'name' => 'required|max:8'
         ]);
         $validated['user_id'] = Auth::id();
         $account = BankAccount::create($validated);
@@ -81,7 +81,9 @@ class BankAccountController extends Controller
     public function update(Request $request, BankAccount $bankaccount)
     {
         if(Auth::id() == $bankaccount->user_id) {
-            $bankaccount->update(\request(['name']));
+            $bankaccount->update([
+                'name' => Crypt::encrypt($request['name'])
+            ]);
             return redirect('/');
         } else {
             abort(403);

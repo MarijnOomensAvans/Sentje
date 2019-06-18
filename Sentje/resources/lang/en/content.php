@@ -29,5 +29,6 @@ return [
     'thanksdon' => 'Thank you for donating!',
     'recieved' => 'The user has recieved the money.',
     'processed' => 'The transaction is currently being processed.',
-    'error' => 'An error occured. Please try again later.'
+    'error' => 'An error occured. Please try again later.',
+    'owner' => 'Owner'
 ];

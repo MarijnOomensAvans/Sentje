@@ -21,7 +21,12 @@ class HomeController extends Controller
         if(Auth::guest()) {
             return view('auth/login');
         } else {
-            return view('home');
+            $locale = Auth::user()->lang;
+            if($locale == 'ru') {
+                return redirect(url('locale/ru'));
+            } else {
+                return redirect(url('locale/en'));
+            }
         }
 
     }

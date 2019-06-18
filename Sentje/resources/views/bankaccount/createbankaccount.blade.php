@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary">{{ __('create') }}</button>
+            <button type="submit" class="btn btn-primary">{{ __('content.create') }}</button>
         </form>
     </div>
 @endsection

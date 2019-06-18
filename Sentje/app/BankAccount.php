@@ -2,6 +2,7 @@
 
 namespace Sentje;
 
+use danielme85\CConverter\Currency;
 use Illuminate\Database\Eloquent\Model;
 
 class BankAccount extends Model
@@ -27,7 +28,7 @@ class BankAccount extends Model
                 if($transaction->currency == 'EUR') {
                     $balance += $transaction->amount;
                 } else {
-                    $balance += $transaction->amount * 0.0138198367;
+                    $balance += Currency::conv($from = 'RUB',$to = 'EUR',$value = $transaction->amount,$decimals = 2);
                 }
 
             }

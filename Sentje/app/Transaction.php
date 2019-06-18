@@ -3,6 +3,7 @@
 namespace Sentje;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Mollie\Laravel\Facades\Mollie;
 
 class Transaction extends Model
@@ -29,4 +30,14 @@ class Transaction extends Model
 
         return Mollie::api()->payments()->get($this->payment_id);
     }
+
+    public function paid_at() {
+        if(Auth::user()->lang == 'ru') {
+            return str_replace('-','.',$this->paid_at);
+        } else {
+            return $this->paid_at;
+        }
+
+    }
+
 }

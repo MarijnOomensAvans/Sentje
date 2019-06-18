@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">{{ \Illuminate\Support\Facades\Crypt::decrypt($bankaccount->name) }}</div>
 
@@ -16,6 +16,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">{{ __('content.reciever') }}</th>
+                                <th scope="col">{{ __('content.owner') }}</th>
                                 <th scope="col">{{ __('content.amount') }}</th>
                                 <th scope="col">{{ __('content.type') }}</th>
                                 <th scope="col">{{ __('content.status') }}</th>
@@ -26,6 +27,7 @@
                             @foreach($bankaccount->transactions as $transaction)
                                 <tr>
                                 <div>
+                                    <td>{{ $transaction->name }}</td>
                                     <td>{{ \Illuminate\Support\Facades\Crypt::decrypt(Auth::user()->name) }}</td>
                                     <td>{{ $transaction->amount }} @if($transaction->currency == 'EUR')€@else₽@endif</td>
                                     <td>{{ $transaction->type }}</td>

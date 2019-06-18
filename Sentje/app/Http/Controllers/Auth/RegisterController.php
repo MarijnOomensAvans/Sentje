@@ -66,7 +66,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => Crypt::encrypt($data['name']),
-            'email' => Crypt::encrypt($data['email']),
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }
