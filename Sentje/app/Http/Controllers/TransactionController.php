@@ -26,7 +26,8 @@ class TransactionController extends Controller
         return view('transaction.createtransaction', compact('accountid'));
     }
 
-    public function donate($accountid) {
+    public function donate($accountid)
+    {
         return view('transaction.createdonation', compact('accountid'));
     }
 
@@ -39,7 +40,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //Payment request
-        if($request['type'] == 'Transaction') {
+        if ($request['type'] == 'Transaction') {
             $validated = request()->validate([
                 'name' => 'required|max:255',
                 'amount' => 'required|min:0.01|max:4000',
@@ -103,7 +104,6 @@ class TransactionController extends Controller
 
             return redirect($payment->getCheckoutUrl(), 303);
         }
-
     }
 
     /**
@@ -115,7 +115,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         $account = BankAccount::where('id', $transaction->bank_account_id)->first();
-        if(Auth::id() == $account->user_id) {
+        if (Auth::id() == $account->user_id) {
             return view('transaction.showtransaction', compact('transaction'));
         } else {
             abort(403);
@@ -131,7 +131,7 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         $account = BankAccount::where('id', $transaction->bank_account_id)->first();
-        if(Auth::id() == $account->user_id) {
+        if (Auth::id() == $account->user_id) {
             $transaction->delete();
             return back();
         } else {
@@ -139,25 +139,27 @@ class TransactionController extends Controller
         }
     }
 
-    public function pay($transaction_id) {
+    public function pay($transaction_id)
+    {
 
-        $transaction = Transaction::where('id',(int)$transaction_id)->first();
+        $transaction = Transaction::where('id', (int)$transaction_id)->first();
 
-        if(empty($transaction)) {
+        if (empty($transaction)) {
             return abort(404);
         }
 
         $payment = Mollie::api()->payments()->get($transaction->payment_id);
 
-        if(!$payment->isOpen()) {
+        if (!$payment->isOpen()) {
             return abort(404);
         } else {
             return redirect($payment->getCheckoutUrl(), 303);
         }
     }
 
-    public function completed($id) {
-        $transaction = Transaction::where('id',$id)->first();
+    public function completed($id)
+    {
+        $transaction = Transaction::where('id', $id)->first();
         if (empty($transaction->payment_id)) {
             return abort(404);
         }
@@ -172,7 +174,7 @@ class TransactionController extends Controller
 
         if ($payment->isFailed() || $payment->isCanceled() || $payment->isExpired()) {
             $error = true;
-        } else if ($payment->isPending() || $payment->isOpen()) {
+        } elseif ($payment->isPending() || $payment->isOpen()) {
             $pending = true;
         } else {
             $success = true;
@@ -181,26 +183,20 @@ class TransactionController extends Controller
         return view('transaction.thanks', compact('success', 'pending', 'error'));
     }
 
-    private function process(Payment $payment, Transaction $transaction) {
+    private function process(Payment $payment, Transaction $transaction)
+    {
         if ($payment->isPaid()) {
             $transaction->paid_at = Carbon::parse($payment->paidAt)->setTimezone(config('app.timezone'));
             $transaction->status = 'Paid';
-
-        } else if ($payment->isExpired()) {
+        } elseif ($payment->isExpired()) {
             $transaction->failed_at = Carbon::parse($payment->expiresAt)->setTimezone(config('app.timezone'));
             $transaction->status = 'Expired';
-        }
-
-        else if ($payment->isCanceled()) {
+        } elseif ($payment->isCanceled()) {
             $transaction->failed_at = Carbon::parse($payment->canceledAt)->setTimezone(config('app.timezone'));
             $transaction->status = 'Canceled';
-        }
-
-        else if($payment->isPending()) {
+        } elseif ($payment->isPending()) {
             $transaction->status = 'Pending';
-        }
-
-        else {
+        } else {
             $transaction->failed_at = Carbon::parse($payment->failedAt)->setTimezone(config('app.timezone'));
             $transaction->status = 'Failed';
         }

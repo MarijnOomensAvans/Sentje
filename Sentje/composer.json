@@ -19,7 +19,8 @@
         "mollie/mollie-api-php": "2.0",
         "nyholm/psr7": "^1.1",
         "php-http/curl-client": "^2.0",
-        "php-http/message": "^1.7"
+        "php-http/message": "^1.7",
+        "squizlabs/php_codesniffer": "^3.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -48,12 +48,11 @@ class BankAccountController extends Controller
      */
     public function show(BankAccount $bankaccount)
     {
-        if(Auth::id() == $bankaccount->user_id) {
+        if (Auth::id() == $bankaccount->user_id) {
             return view('bankaccount/showbankaccount', compact('bankaccount'));
         } else {
             abort(403);
         }
-
     }
 
     /**
@@ -64,7 +63,7 @@ class BankAccountController extends Controller
      */
     public function edit(BankAccount $bankaccount)
     {
-        if(Auth::id() == $bankaccount->user_id) {
+        if (Auth::id() == $bankaccount->user_id) {
             return view('bankaccount/editbankaccount', compact('bankaccount'));
         } else {
             abort(403);
@@ -80,7 +79,7 @@ class BankAccountController extends Controller
      */
     public function update(Request $request, BankAccount $bankaccount)
     {
-        if(Auth::id() == $bankaccount->user_id) {
+        if (Auth::id() == $bankaccount->user_id) {
             $bankaccount->update([
                 'name' => Crypt::encrypt($request['name'])
             ]);
@@ -98,7 +97,7 @@ class BankAccountController extends Controller
      */
     public function destroy(BankAccount $bankaccount)
     {
-        if(Auth::id() == $bankaccount->user_id) {
+        if (Auth::id() == $bankaccount->user_id) {
             $bankaccount->delete();
             return redirect('/');
         } else {

@@ -23,7 +23,8 @@ class Transaction extends Model
         'failed_at'
         ];
 
-    public function getPaymentAttribute() {
+    public function getPaymentAttribute()
+    {
         if (empty($this->payment_id)) {
             return null;
         }
@@ -31,13 +32,12 @@ class Transaction extends Model
         return Mollie::api()->payments()->get($this->payment_id);
     }
 
-    public function paid_at() {
-        if(Auth::user()->lang == 'ru') {
-            return str_replace('-','.',$this->paid_at);
+    public function paid_at()
+    {
+        if (Auth::user()->lang == 'ru') {
+            return str_replace('-', '.', $this->paid_at);
         } else {
             return $this->paid_at;
         }
-
     }
-
 }

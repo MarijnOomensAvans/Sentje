@@ -13,7 +13,7 @@ return [
     'accbalance' => 'Остаток на счете:',
     'transactions' => 'Транзакции:',
     'transaction' => 'Транзакция',
-    'reciver' => 'Получить',
+    'reciever' => 'Получить',
     'amount' => 'Количество',
     'wcurrency' => 'Валюта',
     'description' => 'Описание',

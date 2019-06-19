@@ -17,18 +17,18 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function landing() {
-        if(Auth::guest()) {
+    public function landing()
+    {
+        if (Auth::guest()) {
             return view('auth/login');
         } else {
             $locale = Auth::user()->lang;
-            if($locale == 'ru') {
+            if ($locale == 'ru') {
                 return redirect(url('locale/ru'));
             } else {
                 return redirect(url('locale/en'));
             }
         }
-
     }
 
     /**

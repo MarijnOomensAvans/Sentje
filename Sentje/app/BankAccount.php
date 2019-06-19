@@ -13,24 +13,26 @@ class BankAccount extends Model
         'user_id'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('Sentje\User');
     }
 
-    public function transactions() {
+    public function transactions()
+    {
         return $this->hasMany('Sentje\Transaction');
     }
 
-    public function balance() {
+    public function balance()
+    {
         $balance = 0;
         foreach ($this->transactions as $transaction) {
-            if($transaction->status == 'Paid') {
-                if($transaction->currency == 'EUR') {
+            if ($transaction->status == 'Paid') {
+                if ($transaction->currency == 'EUR') {
                     $balance += $transaction->amount;
                 } else {
-                    $balance += Currency::conv($from = 'RUB',$to = 'EUR',$value = $transaction->amount,$decimals = 2);
+                    $balance += Currency::conv($from = 'RUB', $to = 'EUR', $value = $transaction->amount, $decimals = 2);
                 }
-
             }
         }
         $balance = number_format($balance, 2, '.', '');
